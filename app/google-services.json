@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "832001951903",
+    "project_id": "project-1-android-teamwork",
+    "storage_bucket": "project-1-android-teamwork.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832001951903:android:4d4232b405c800fb08baaa",
+        "android_client_info": {
+          "package_name": "com.fpoly.pro1121.adminapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832001951903-jcuc0ph0eamho9shdg2qir53mcuv3pqg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfUu6W6OuWT68lX-XTpHi0ejxxb3gwlqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832001951903-jcuc0ph0eamho9shdg2qir53mcuv3pqg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

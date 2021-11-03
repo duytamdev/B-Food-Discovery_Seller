@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PRO1121_AdminApp">
-        <activity android:name=".activities.CategoryManagerActivity" android:exported="false"/>
+        <activity
+            android:name=".activities.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CategoryManagerActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.OrderManagerActivity"
             android:exported="false" />

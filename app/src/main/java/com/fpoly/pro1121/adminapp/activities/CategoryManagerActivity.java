@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,8 +15,10 @@ import android.widget.Toast;
 import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.adapter.CategoryAdapter;
 import com.fpoly.pro1121.adminapp.model.Category;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
@@ -134,6 +137,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                     String name = edtName.getText().toString();
                     categoryCurrent[0].setName(name);
                     updateCategory(categoryCurrent[0]);
+                    dialog.dismiss();
                 });
 
             }catch(Exception e) {
@@ -144,15 +148,21 @@ public class CategoryManagerActivity extends AppCompatActivity {
     }
 
     private void updateCategory(Category category) {
-
+        db.collection("categories").document(category.getId()).update("name",category.getName())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(CategoryManagerActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void addCategory(Category category) {
-        db.collection("categories")
-                .add(category)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("categories").document(category.getId())
+                .set(category)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void unused) {
                         Toast.makeText(CategoryManagerActivity.this,"Thêm thành công",Toast.LENGTH_SHORT).show();
                     }
                 })

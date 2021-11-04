@@ -79,7 +79,17 @@ public class CategoryManagerActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        categoryAdapter = new CategoryAdapter();
+        categoryAdapter = new CategoryAdapter(new CategoryAdapter.IClickCategory() {
+            @Override
+            public void clickDelete(String categoryID) {
+                // click delete category
+            }
+
+            @Override
+            public void clickUpdate(Category category) {
+                openDialogAddUpdatedCategory(false,category);
+            }
+        });
         categoryAdapter.setData(categories);
         rvCategory.setAdapter(categoryAdapter);
         LinearLayoutManager linearLayout = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
@@ -117,9 +127,24 @@ public class CategoryManagerActivity extends AppCompatActivity {
             });
         }
         else{
-            btnAdd.setText("Update");
+            try {
+                btnAdd.setText("Update");
+                edtName.setText(categoryCurrent[0].getName());
+                btnAdd.setOnClickListener(view -> {
+                    String name = edtName.getText().toString();
+                    categoryCurrent[0].setName(name);
+                    updateCategory(categoryCurrent[0]);
+                });
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
         }
         dialog.show();
+    }
+
+    private void updateCategory(Category category) {
+
     }
 
     private void addCategory(Category category) {

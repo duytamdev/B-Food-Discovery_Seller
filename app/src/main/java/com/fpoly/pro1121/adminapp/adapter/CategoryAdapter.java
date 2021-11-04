@@ -20,6 +20,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     List<Category> list = new ArrayList<>();
 
+    public interface IClickCategory{
+        void clickDelete(String categoryID);
+        void clickUpdate(Category category);
+    }
+    IClickCategory iClickCategory;
+
+    public CategoryAdapter(IClickCategory iClickCategory) {
+        this.iClickCategory = iClickCategory;
+    }
+
     public void setData(List<Category> list){
         this.list = list;
         notifyDataSetChanged();
@@ -41,6 +51,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 .centerCrop()
                 .into(holder.img);
 
+        holder.ivDelete.setOnClickListener( view -> iClickCategory.clickDelete(category.getId()));
+        holder.ivUpdate.setOnClickListener( view -> iClickCategory.clickUpdate(category));
     }
 
     @Override

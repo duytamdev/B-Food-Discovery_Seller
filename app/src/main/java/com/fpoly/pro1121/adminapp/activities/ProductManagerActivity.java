@@ -3,6 +3,7 @@ package com.fpoly.pro1121.adminapp.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.fpoly.pro1121.adminapp.R;
@@ -17,7 +18,15 @@ public class ProductManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_manager);
         initUI();
+        actionAddProduct();
     }
+
+    private void actionAddProduct() {
+        fabAddProduct.setOnClickListener(view ->{
+            startActivity(new Intent(ProductManagerActivity.this,AddProductActivity.class));
+        });
+    }
+
 
     private void initUI() {
         rvProduct = findViewById(R.id.rv_product);

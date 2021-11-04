@@ -1,11 +1,15 @@
 package com.fpoly.pro1121.adminapp.activities;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -86,6 +90,19 @@ public class CategoryManagerActivity extends AppCompatActivity {
             @Override
             public void clickDelete(String categoryID) {
                 // click delete category
+                new AlertDialog.Builder(CategoryManagerActivity.this)
+                        .setTitle("Xác Nhận")
+                        .setMessage("Bạn có thật sự muốn xoá ?")
+                        .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteCategory(categoryID);
+
+                            }
+                        })
+                        .setNegativeButton("Huỷ",null)
+                        .show();
+
             }
 
             @Override
@@ -97,6 +114,20 @@ public class CategoryManagerActivity extends AppCompatActivity {
         rvCategory.setAdapter(categoryAdapter);
         LinearLayoutManager linearLayout = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rvCategory.setLayoutManager(linearLayout);
+    }
+
+    private void deleteCategory(String categoryID) {
+        db.collection("categories").document(categoryID).delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(CategoryManagerActivity.this, "Xoá Thành Công", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Log.e("--->", "onComplete: error" );
+                        }
+                    }
+                });
     }
 
 

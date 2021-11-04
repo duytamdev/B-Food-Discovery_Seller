@@ -55,7 +55,7 @@
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="Product price"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
         <Spinner
             android:id="@+id/addProduct_spinner"

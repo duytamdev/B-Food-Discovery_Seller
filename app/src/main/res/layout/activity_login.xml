@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <ImageView
+           android:id="@+id/imgLogin"
+           android:layout_width="match_parent"
+           android:layout_height="200dp"
+           android:layout_marginTop="20dp"
+           android:src="@drawable/login"/>
+
+       <TextView
+           android:id="@+id/tvLogin"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/imgLogin"
+           android:layout_marginTop="20dp"
+           android:gravity="center"
+           android:text="Sign In"
+           android:textColor="#FF4F5A"
+           android:textSize="30dp"
+           android:textStyle="bold"/>
+
+       <View
+           android:id="@+id/v1"
+           android:layout_width="280dp"
+           android:layout_height="1dp"
+           android:layout_below="@+id/tvLogin"
+           android:layout_centerInParent="true"
+           android:layout_marginTop="20dp"
+           android:background="#E8E8E8"/>
+
+       <com.google.android.material.textfield.TextInputLayout
+           android:layout_marginHorizontal="32dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/v1"
+           android:layout_centerInParent="true"
+           android:layout_marginTop="20dp"
+           android:hint="Username"
+           app:startIconDrawable="@drawable/username"
+           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+           <EditText
+               android:id="@+id/edt_email_login"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:importantForAutofill="no" />
+
+
+       </com.google.android.material.textfield.TextInputLayout>
+
+
+       <com.google.android.material.textfield.TextInputLayout
+           android:layout_marginHorizontal="32dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/layout_username_login"
+           android:layout_centerInParent="true"
+           android:layout_marginTop="20dp"
+           android:hint="Password"
+           app:startIconDrawable="@drawable/lock"
+           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+           <EditText
+               android:id="@+id/edt_password_login"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:inputType="textPassword"
+               />
+
+       </com.google.android.material.textfield.TextInputLayout>
+
+       <Button
+           android:layout_marginHorizontal="32dp"
+
+           android:id="@+id/btnLogin"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/tvPasswordLogin"
+           android:layout_centerInParent="true"
+           android:layout_marginTop="20dp"
+           android:text="Login">
+
+       </Button>
+
+       <View
+           android:id="@+id/v2"
+           android:layout_width="280dp"
+           android:layout_height="1dp"
+           android:layout_below="@+id/btnLogin"
+           android:layout_centerInParent="true"
+           android:layout_marginTop="20dp"
+           android:background="#E8E8E8"></View>
+
+       <TextView
+           android:id="@+id/tvSignup"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Do not have an account ?"
+           android:gravity="center"
+           android:textSize="11dp"
+           android:layout_marginTop="10dp"
+           android:layout_below="@+id/v2">
+
+       </TextView>
+
+   </LinearLayout>
+
+</ScrollView>

@@ -1,17 +1,24 @@
 package com.fpoly.pro1121.adminapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.adapter.ProductAdapter;
 import com.fpoly.pro1121.adminapp.model.Category;
 import com.fpoly.pro1121.adminapp.model.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -79,7 +86,17 @@ public class ProductManagerActivity extends AppCompatActivity {
         productAdapter = new ProductAdapter(new ProductAdapter.IClickPressedListener() {
             @Override
             public void clickDelete(String productID) {
-
+            new AlertDialog.Builder(ProductManagerActivity.this)
+                    .setTitle("Xác nhận")
+                    .setMessage("Bạn có thật sự muốn xoá không ?")
+                    .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteProduct(productID);
+                        }
+                    })
+                    .setNegativeButton("Huỷ",null)
+                    .show();
             }
 
             @Override
@@ -91,6 +108,20 @@ public class ProductManagerActivity extends AppCompatActivity {
         LinearLayoutManager linearLayout =new LinearLayoutManager(this);
         rvProduct.setLayoutManager(linearLayout);
         rvProduct.setAdapter(productAdapter);
+    }
+
+    private void deleteProduct(String productID) {
+        db.collection("products").document(productID).delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(ProductManagerActivity.this, "Xoá Thành Công", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Log.e("--->", "onComplete: error" );
+                        }
+                    }
+                });
     }
 
     private void actionAddProduct() {

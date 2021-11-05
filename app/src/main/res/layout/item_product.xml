@@ -1,55 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="8dp"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_item_product"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/dish"
+    <RelativeLayout
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_item_product"
+            android:layout_width="95dp"
+            android:layout_marginEnd="8dp"
+            android:layout_height="95dp"
+            android:src="@drawable/ic_baseline_add_24"
 
-        />
-    <TextView
-        android:id="@+id/tv_item_product"
-        android:text="Name product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="18dp"
-        android:textSize="25dp"
-        />
-    <TextView
-        android:id="@+id/tv_price_product"
-        android:text="20.000VND"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="55dp"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        />
+            />
 
-    <ImageView
-        android:id="@+id/iv_DeleteButton_product"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:srcCompat="@drawable/ic_delete"
-        android:layout_marginTop="18dp"
-        android:layout_marginLeft="350dp"
-        />
-    <ImageView
-        android:id="@+id/iv_EditButton_product"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:srcCompat="@drawable/ic_edit"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="350dp"
-        />
+        <TextView
+            android:paddingEnd="8dp"
+            android:layout_toLeftOf="@+id/iv_DeleteButton_product"
+            android:id="@+id/tv_item_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_item_product"
+            android:layout_toRightOf="@id/iv_item_product"
+            android:maxLines="2"
+            android:text="Name product"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/tv_price_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_item_product"
+            android:layout_below="@+id/tv_item_product"
+            android:text="20.000VND"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <ImageView
+
+            android:id="@+id/iv_DeleteButton_product"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/iv_EditButton_product"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/iv_DeleteButton_product"
+            android:layout_alignParentEnd="true"
+
+            app:srcCompat="@drawable/ic_edit" />
+    </RelativeLayout>
 
 
-</RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

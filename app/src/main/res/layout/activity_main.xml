@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/iv_category_manager"
-        android:src="@drawable/ic_category"
+        android:src="@drawable/categories"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="120dp"/>
     <TextView
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -24,9 +24,9 @@
     <ImageView
         android:id="@+id/iv_product_manager"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_food"
+        android:src="@drawable/hamburger"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="120dp"/>
     <TextView
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -38,9 +38,9 @@
   <ImageView
       android:id="@+id/iv_order_manager"
       android:layout_marginTop="16dp"
-      android:src="@drawable/ic_order"
+      android:src="@drawable/order"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="120dp"/>
     <TextView
         android:textStyle="bold"
         android:textColor="@color/black"

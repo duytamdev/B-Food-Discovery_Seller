@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.adapter.CustomArrayAdapter;
 import com.fpoly.pro1121.adminapp.model.Category;
@@ -69,27 +70,76 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     private void actionAddProduct() {
-
+        Intent intent = getIntent();
         ivProduct.setOnClickListener(view->{
             Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
             photoPickerIntent.setType("image/*");
             activityResultLauncher.launch(photoPickerIntent);
         });
-        btnAddProduct.setOnClickListener(view ->{
-            try {
-                UUID uuid = UUID.randomUUID();
-                String id = uuid.toString();
-                String name = edtName.getText().toString();
-                int price = Integer.valueOf(edtPrice.getText().toString());
-                String descriptor = edtDescription.getText().toString();
-                String categoryID = categoryIDSelected;
-                String urlImage = urlImageProductSelected;
-                Product product = new Product(id,urlImage,name,price,descriptor,categoryID);
-                addProductToServer(product);
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-        });
+        if(intent.getAction().equals("add")){
+            btnAddProduct.setText("Add Product");
+
+            btnAddProduct.setOnClickListener(view ->{
+                try {
+                    UUID uuid = UUID.randomUUID();
+                    String id = uuid.toString();
+                    String name = edtName.getText().toString();
+                    int price = Integer.valueOf(edtPrice.getText().toString());
+                    String descriptor = edtDescription.getText().toString();
+                    String categoryID = categoryIDSelected;
+                    String urlImage = urlImageProductSelected;
+                    Product product = new Product(id,urlImage,name,price,descriptor,categoryID);
+                    addProductToServer(product);
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }else if(intent.getAction().equals("update")){
+            Product product = intent.getParcelableExtra("product");
+            Glide.with(this)
+                    .load(product.getUrlImage())
+                    .centerCrop()
+                    .into(ivProduct);
+            urlImageProductSelected = product.getUrlImage();
+            edtName.setText(product.getName());
+            edtPrice.setText(product.getPrice()+"");
+            edtDescription.setText(product.getDescription());
+
+            btnAddProduct.setText("Update Product");
+            btnAddProduct.setOnClickListener(view->{
+                try {
+                    String name = edtName.getText().toString();
+                    int price = Integer.valueOf(edtPrice.getText().toString());
+                    String descriptor = edtDescription.getText().toString();
+                    String categoryID = categoryIDSelected;
+                    String urlImage = urlImageProductSelected;
+                    product.updateProduct(urlImage,name,price,descriptor,categoryID);
+                    updateProduct(product);
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+        }
+
+
+    }
+
+    private void updateProduct(Product product) {
+        db.collection("products")
+                .document(product.getId())
+                .update(
+                        "name",product.getName(),
+                        "urlImage",product.getUrlImage(),
+                        "price",product.getPrice(),
+                        "description",product.getDescription(),
+                        "categoryID",product.getCategoryID())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(AddProductActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void addProductToServer(Product product) {

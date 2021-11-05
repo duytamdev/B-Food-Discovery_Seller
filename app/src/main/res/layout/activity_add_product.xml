@@ -88,17 +88,11 @@
 
         <Button
             android:id="@+id/btnAddProduct"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/circle"
-            android:fontFamily="cursive"
             android:text="add"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addProduct_spinner" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 

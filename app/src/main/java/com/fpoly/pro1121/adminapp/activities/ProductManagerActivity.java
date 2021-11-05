@@ -101,6 +101,9 @@ public class ProductManagerActivity extends AppCompatActivity {
 
             @Override
             public void clickUpdate(Product product) {
+                Intent intent = new Intent("update",null,ProductManagerActivity.this,AddProductActivity.class);
+                intent.putExtra("product",product);
+                startActivity(intent);
 
             }
         });
@@ -126,7 +129,8 @@ public class ProductManagerActivity extends AppCompatActivity {
 
     private void actionAddProduct() {
         fabAddProduct.setOnClickListener(view ->{
-            startActivity(new Intent(ProductManagerActivity.this,AddProductActivity.class));
+
+            startActivity(new Intent("add",null,ProductManagerActivity.this,AddProductActivity.class));
         });
     }
 

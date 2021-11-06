@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +50,9 @@ public class ProductManagerActivity extends AppCompatActivity {
     }
 
     private void readDataRealtime() {
+        ProgressDialog progressDialog = new ProgressDialog(ProductManagerActivity.this);
+        progressDialog.setMessage("loading....");
+        progressDialog.show();
         db.collection("products")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -72,7 +76,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                                 list = new ArrayList<>();
                                 list.addAll(clones);
                                 productAdapter.setData(list);
-
+                                progressDialog.dismiss();
                             }catch(Exception e) {
                                 e.printStackTrace();
                             }

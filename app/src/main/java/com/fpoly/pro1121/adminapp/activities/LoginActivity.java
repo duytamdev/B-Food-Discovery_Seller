@@ -3,6 +3,7 @@ package com.fpoly.pro1121.adminapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -58,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void actionLogin(String email, String password) {
+        ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("loading....");
+        progressDialog.show();
         mAuth.signInWithEmailAndPassword(email,password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -77,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                         }else{
                                             Toast.makeText(LoginActivity.this,"Tài khoản không có quyền truy cập",Toast.LENGTH_SHORT).show();
                                         }
+                                        progressDialog.dismiss();
                                     }
 
                                 }else{

@@ -126,6 +126,9 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void updateProduct(Product product) {
+        ProgressDialog progressDialog = new ProgressDialog(AddProductActivity.this);
+        progressDialog.setMessage("loading....");
+        progressDialog.show();
         db.collection("products")
                 .document(product.getId())
                 .update(
@@ -137,18 +140,23 @@ public class AddProductActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        progressDialog.dismiss();
                         Toast.makeText(AddProductActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void addProductToServer(Product product) {
+        ProgressDialog progressDialog = new ProgressDialog(AddProductActivity.this);
+        progressDialog.setMessage("loading....");
+        progressDialog.show();
         db.collection("products")
                 .document(product.getId())
                 .set(product)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        progressDialog.dismiss();
                         Toast.makeText(AddProductActivity.this,"Thêm Thành Công",Toast.LENGTH_SHORT).show();
                     }
                 })

@@ -3,117 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="16dp"
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
-   <LinearLayout
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-       <ImageView
-           android:id="@+id/imgLogin"
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:layout_marginTop="20dp"
-           android:src="@drawable/login"/>
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/imgLogin"
+            android:layout_width="202dp"
+            android:layout_height="169dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/im_welcome"
+            />
 
-       <TextView
-           android:id="@+id/tvLogin"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/imgLogin"
-           android:layout_marginTop="20dp"
-           android:gravity="center"
-           android:text="Sign In"
-           android:textColor="#FF4F5A"
-           android:textSize="30dp"
-           android:textStyle="bold"/>
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgLogin"
+            android:layout_marginTop="12dp"
+            android:text="Welcome back!"
+            android:textColor="@color/black"
+            android:textSize="32dp"
+            android:textStyle="bold"/>
 
-       <View
-           android:id="@+id/v1"
-           android:layout_width="280dp"
-           android:layout_height="1dp"
-           android:layout_below="@+id/tvLogin"
-           android:layout_centerInParent="true"
-           android:layout_marginTop="20dp"
-           android:background="#E8E8E8"/>
+        <TextView
+            android:textColor="@color/black"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Log in to your existant account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-       <com.google.android.material.textfield.TextInputLayout
-           android:layout_marginHorizontal="32dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/v1"
-           android:layout_centerInParent="true"
-           android:layout_marginTop="20dp"
-           android:hint="Username"
-           app:startIconDrawable="@drawable/username"
-           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputLayout
+            app:endIconMode="clear_text"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="38dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v1"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:hint="Email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-           <EditText
-               android:id="@+id/edt_email_login"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:importantForAutofill="no" />
-
-
-       </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/edt_email_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAutofill="no" />
 
 
-       <com.google.android.material.textfield.TextInputLayout
-           android:layout_marginHorizontal="32dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/layout_username_login"
-           android:layout_centerInParent="true"
-           android:layout_marginTop="20dp"
-           android:hint="Password"
-           app:startIconDrawable="@drawable/lock"
-           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        </com.google.android.material.textfield.TextInputLayout>
 
-           <EditText
-               android:id="@+id/edt_password_login"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:inputType="textPassword"
-               />
 
-       </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            app:passwordToggleEnabled="true"
+            android:layout_marginHorizontal="38dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-       <Button
-           android:layout_marginHorizontal="32dp"
+            <EditText
+                android:id="@+id/edt_password_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                />
 
-           android:id="@+id/btnLogin"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/tvPasswordLogin"
-           android:layout_centerInParent="true"
-           android:layout_marginTop="20dp"
-           android:text="Login">
+        </com.google.android.material.textfield.TextInputLayout>
 
-       </Button>
+        <Button
+            android:layout_marginHorizontal="105dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="45dp"
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPasswordLogin"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:text="Log in">
 
-       <View
-           android:id="@+id/v2"
-           android:layout_width="280dp"
-           android:layout_height="1dp"
-           android:layout_below="@+id/btnLogin"
-           android:layout_centerInParent="true"
-           android:layout_marginTop="20dp"
-           android:background="#E8E8E8"></View>
+        </Button>
 
-       <TextView
-           android:id="@+id/tvSignup"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Do not have an account ?"
-           android:gravity="center"
-           android:textSize="11dp"
-           android:layout_marginTop="10dp"
-           android:layout_below="@+id/v2">
-
-       </TextView>
-
-   </LinearLayout>
+    </LinearLayout>
 
 </ScrollView>

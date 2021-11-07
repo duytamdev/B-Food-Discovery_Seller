@@ -30,6 +30,7 @@
             android:src="@drawable/ic_food" />
 
         <com.google.android.material.textfield.TextInputLayout
+            app:endIconMode="clear_text"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -63,7 +64,8 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp" />
         <com.google.android.material.textfield.TextInputLayout
-            app:counterMaxLength="200"
+            app:endIconMode="clear_text"
+            app:counterMaxLength="400"
             android:layout_marginTop="8dp"
             app:counterEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

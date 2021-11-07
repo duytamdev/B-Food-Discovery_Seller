@@ -20,23 +20,24 @@
             />
 
         <TextView
-            android:paddingEnd="8dp"
-            android:layout_toLeftOf="@+id/iv_DeleteButton_product"
             android:id="@+id/tv_item_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_item_product"
+            android:layout_toLeftOf="@+id/iv_DeleteButton_product"
             android:layout_toRightOf="@id/iv_item_product"
             android:maxLines="2"
+            android:paddingEnd="8dp"
             android:text="Name product"
             android:textSize="25dp" />
 
         <TextView
+            android:textColor="@color/orange"
             android:id="@+id/tv_price_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_item_product"
             android:layout_below="@+id/tv_item_product"
+            android:layout_toRightOf="@id/iv_item_product"
             android:text="20.000VND"
             android:textSize="30dp"
             android:textStyle="bold" />

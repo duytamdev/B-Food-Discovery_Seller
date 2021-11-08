@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.model.Order;
+import com.fpoly.pro1121.adminapp.model.ProductOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,8 +26,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.UserOrderViewHoder>{
 
+    public interface IClickUserOrderListener {
+        void clickShowDetails(List<ProductOrder> productOrderList);
+    }
+    IClickUserOrderListener iClickUserOrderListener;
+
     List<Order> list = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public UserOrderAdapter(IClickUserOrderListener iClickUserOrderListener) {
+        this.iClickUserOrderListener = iClickUserOrderListener;
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<Order> list){
         this.list = list;
@@ -74,7 +85,9 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.User
                         }
                     }
                 });
-
+        holder.itemView.setOnClickListener(view->{
+            iClickUserOrderListener.clickShowDetails(order.getProductOrderList());
+        });
     }
 
     @Override

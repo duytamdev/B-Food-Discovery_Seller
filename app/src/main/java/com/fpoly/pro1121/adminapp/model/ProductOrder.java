@@ -1,6 +1,9 @@
 package com.fpoly.pro1121.adminapp.model;
 
-public class ProductOrder {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ProductOrder implements Parcelable {
     private int id;
     private String idUser;
     private String idProduct;
@@ -24,6 +27,27 @@ public class ProductOrder {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
     }
+
+    protected ProductOrder(Parcel in) {
+        id = in.readInt();
+        idUser = in.readString();
+        idProduct = in.readString();
+        priceProduct = in.readInt();
+        quantity = in.readInt();
+        unitPrice = in.readInt();
+    }
+
+    public static final Creator<ProductOrder> CREATOR = new Creator<ProductOrder>() {
+        @Override
+        public ProductOrder createFromParcel(Parcel in) {
+            return new ProductOrder(in);
+        }
+
+        @Override
+        public ProductOrder[] newArray(int size) {
+            return new ProductOrder[size];
+        }
+    };
 
     public int getUnitPrice() {
         return this.priceProduct * quantity;
@@ -67,5 +91,20 @@ public class ProductOrder {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(idUser);
+        parcel.writeString(idProduct);
+        parcel.writeInt(priceProduct);
+        parcel.writeInt(quantity);
+        parcel.writeInt(unitPrice);
     }
 }

@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRO1121_AdminApp">
         <activity
+            android:name=".activities.ShowDetailsOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

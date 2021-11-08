@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.fpoly.pro1121.adminapp.R;
@@ -90,7 +92,14 @@ public class OrderManagerActivity extends AppCompatActivity {
 
     private void initUI() {
         rvUserOrder = findViewById(R.id.rv_user_order);
-        userOrderAdapter = new UserOrderAdapter();
+        userOrderAdapter = new UserOrderAdapter(new UserOrderAdapter.IClickUserOrderListener() {
+            @Override
+            public void clickShowDetails(List<ProductOrder> productOrderList) {
+                Intent intent = new Intent(OrderManagerActivity.this,ShowDetailsOrderActivity.class);
+                intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) productOrderList);
+                startActivity(intent);
+            }
+        });
         userOrderAdapter.setData(list);
         rvUserOrder.setAdapter(userOrderAdapter);
         LinearLayoutManager linearLayout = new LinearLayoutManager(this);

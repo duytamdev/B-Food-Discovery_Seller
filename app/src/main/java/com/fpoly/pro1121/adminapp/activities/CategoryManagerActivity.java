@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fpoly.pro1121.adminapp.R;
+import com.fpoly.pro1121.adminapp.Utils;
 import com.fpoly.pro1121.adminapp.adapter.CategoryAdapter;
 import com.fpoly.pro1121.adminapp.model.Category;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -143,13 +145,19 @@ public class CategoryManagerActivity extends AppCompatActivity {
     private void openDialogAddUpdatedCategory(boolean isAdd, Category ...categoryCurrent) {
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(R.layout.dialog_add_category);
+        TextInputLayout tilNameCategory = dialog.findViewById(R.id.til_name_category);
         EditText edtName = dialog.findViewById(R.id.edt_name_category);
         Button btnAdd = dialog.findViewById(R.id.btn_add_category);
+        assert edtName != null;
+        Utils.addTextChangedListener(edtName,tilNameCategory,false);
         if(isAdd){
             btnAdd.setText("Add");
             btnAdd.setOnClickListener(view -> {
                try {
-                   String name = edtName.getText().toString();
+                   String name = edtName.getText().toString().trim();
+                   if(name.isEmpty()||tilNameCategory.getError()!=null){
+                       return;
+                   }
                    // get chuỗi random làm id category
                    UUID uuid = UUID.randomUUID();
                    Category category = new Category(uuid.toString(),name,urlImage);
@@ -167,6 +175,9 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 btnAdd.setOnClickListener(view -> {
                     String name = edtName.getText().toString();
                     categoryCurrent[0].setName(name);
+                    if(name.isEmpty()||tilNameCategory.getError()!=null){
+                        return;
+                    }
                     updateCategory(categoryCurrent[0]);
                     dialog.dismiss();
                 });

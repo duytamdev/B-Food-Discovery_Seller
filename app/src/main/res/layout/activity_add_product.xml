@@ -30,6 +30,7 @@
             android:src="@drawable/ic_food" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_name_product"
             app:endIconMode="clear_text"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -45,6 +46,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_price_product"
             android:layout_marginTop="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -55,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Product price"
+                android:hint="Price"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
         <Spinner
@@ -64,6 +66,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp" />
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_description_product"
             app:endIconMode="clear_text"
             app:counterMaxLength="400"
             android:layout_marginTop="8dp"

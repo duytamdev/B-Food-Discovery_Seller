@@ -11,10 +11,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fpoly.pro1121.adminapp.R;
+import com.fpoly.pro1121.adminapp.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
+    TextInputLayout tilEmail,tilPassword;
     EditText edtEmail,edtPassword;
     Button btnLogin;
     private FirebaseAuth mAuth;
@@ -40,16 +43,27 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void initUI() {
+        tilEmail = findViewById(R.id.til_email);
+        tilPassword = findViewById(R.id.til_password);
         edtEmail = findViewById(R.id.edt_email_login);
         edtPassword = findViewById(R.id.edt_password_login);
         btnLogin = findViewById(R.id.btnLogin);
     }
 
     private void events() {
+        Utils.addTextChangedListener(edtEmail,tilEmail,true);
+        Utils.addTextChangedListener(edtPassword,tilPassword,false);
         btnLogin.setOnClickListener(view -> {
             try {
-                String email = edtEmail.getText().toString();
-                String password = edtPassword.getText().toString();
+                String email = edtEmail.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
+
+                if(email.isEmpty()|| password.isEmpty()){
+                    return;
+                }
+                if(tilEmail.getError()!=null|| tilPassword.getError()!=null){
+                    return;
+                }
                 actionLogin(email,password);
 
             }catch(Exception e) {

@@ -95,12 +95,12 @@ public class LoginActivity extends AppCompatActivity {
                                         }else{
                                             Toast.makeText(LoginActivity.this,"Tài khoản không có quyền truy cập",Toast.LENGTH_SHORT).show();
                                         }
-                                        progressDialog.dismiss();
                                     }
 
                                 }else{
                                     Toast.makeText(LoginActivity.this,"Login false",Toast.LENGTH_SHORT).show();
                                 }
+                               progressDialog.dismiss();
                            }
                        });
                     }
@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(LoginActivity.this,"Login không thành công",Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
     }

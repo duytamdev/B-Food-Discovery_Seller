@@ -148,12 +148,16 @@ public class CategoryManagerActivity extends AppCompatActivity {
             btnAdd.setOnClickListener(view -> {
                try {
                    String name = edtName.getText().toString().trim();
+                   //check validation
                    if(name.isEmpty()||tilNameCategory.getError()!=null){
                        return;
                    }
                    // get chuỗi random làm id category
                    UUID uuid = UUID.randomUUID();
-                   Category category = new Category(uuid.toString(),name,urlImage);
+                   String idCategory = uuid.toString();
+                   // tạo 1 đối tượng rồi add vào firebase
+                   Category category = new Category(idCategory,name,urlImage);
+                   // hàm add
                    addCategory(category);
                    dialog.dismiss();
                }catch(Exception e){
@@ -191,22 +195,10 @@ public class CategoryManagerActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    // nhận 1 category
     private void addCategory(Category category) {
-        db.collection("categories").document(category.getId())
-                .set(category)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(CategoryManagerActivity.this,"Thêm thành công",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CategoryManagerActivity.this,"Thêm không thành công",Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // viết code ở đây
+        // lưu ý: tạo 1 document trùng với categoryID
     }
 
 

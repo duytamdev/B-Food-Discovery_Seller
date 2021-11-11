@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import com.fpoly.pro1121.adminapp.adapter.ProductAdapter;
 import com.fpoly.pro1121.adminapp.model.Category;
 import com.fpoly.pro1121.adminapp.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -121,7 +124,21 @@ public class ProductManagerActivity extends AppCompatActivity {
     }
 
     private void deleteProduct(String productID) {
-        // viết code ở đây
+        //Collection dữ liệu từ Firebase, xóa Product dựa vào productID truyền vào
+        db.collection("products").document(productID)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ProductManagerActivity.this, "Đã xóa sản phẩm !", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("=====>", "deleteProduct() Failed !", e);
+                    }
+                });
     }
 
     private void actionAddProduct() {

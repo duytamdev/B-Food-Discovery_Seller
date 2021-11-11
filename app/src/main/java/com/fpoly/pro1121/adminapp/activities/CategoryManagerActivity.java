@@ -89,6 +89,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         categoryAdapter = new CategoryAdapter(new CategoryAdapter.IClickCategory() {
+            // khi click show 1 alerdialog xác nhận xoá ( truyền 1 categoryID)
             @Override
             public void clickDelete(String categoryID) {
                 // click delete category
@@ -98,6 +99,8 @@ public class CategoryManagerActivity extends AppCompatActivity {
                         .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                // xoá category ở đây
+                                // nhận 1 categoryID rồi xoá trên server
                                 deleteCategory(categoryID);
 
                             }
@@ -119,17 +122,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
     }
 
     private void deleteCategory(String categoryID) {
-        db.collection("categories").document(categoryID).delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(CategoryManagerActivity.this, "Xoá Thành Công", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Log.e("--->", "onComplete: error" );
-                        }
-                    }
-                });
+        // viết code ở đây
     }
 
 

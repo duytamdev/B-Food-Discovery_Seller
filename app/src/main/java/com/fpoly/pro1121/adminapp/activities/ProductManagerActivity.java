@@ -89,6 +89,7 @@ public class ProductManagerActivity extends AppCompatActivity {
     private void initRecyclerView() {
         productAdapter = new ProductAdapter(new ProductAdapter.IClickPressedListener() {
             @Override
+            // khi click show 1 alerdialog xác nhận xoá ( truyền 1 productID)
             public void clickDelete(String productID) {
             new AlertDialog.Builder(ProductManagerActivity.this)
                     .setTitle("Xác nhận")
@@ -96,6 +97,8 @@ public class ProductManagerActivity extends AppCompatActivity {
                     .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            // xoá product ở đây
+                            // nhận 1 productID rồi xoá trên server
                             deleteProduct(productID);
                         }
                     })
@@ -118,17 +121,7 @@ public class ProductManagerActivity extends AppCompatActivity {
     }
 
     private void deleteProduct(String productID) {
-        db.collection("products").document(productID).delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(ProductManagerActivity.this, "Xoá Thành Công", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Log.e("--->", "onComplete: error" );
-                        }
-                    }
-                });
+        // viết code ở đây
     }
 
     private void actionAddProduct() {

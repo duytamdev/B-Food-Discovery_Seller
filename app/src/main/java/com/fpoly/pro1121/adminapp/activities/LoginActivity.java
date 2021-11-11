@@ -19,10 +19,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -59,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = edtPassword.getText().toString().trim();
 
                 if(email.isEmpty()|| password.isEmpty()){
+                    Toast.makeText(LoginActivity.this,"Vui lòng điền đầy đủ thông tin",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(tilEmail.getError()!=null|| tilPassword.getError()!=null){
@@ -112,5 +116,14 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        if(email!=null){
+            edtEmail.setText(email);
+        }
     }
 }

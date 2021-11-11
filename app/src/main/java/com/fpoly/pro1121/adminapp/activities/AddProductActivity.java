@@ -139,7 +139,11 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     }
-
+    private void clearForm(){
+        edtName.setText("");
+        edtPrice.setText("");
+        edtDescription.setText("");
+    }
     private void updateProduct(Product product) {
         ProgressDialog progressDialog = new ProgressDialog(AddProductActivity.this);
         progressDialog.setMessage("loading....");
@@ -171,11 +175,10 @@ public class AddProductActivity extends AppCompatActivity {
                 .addOnSuccessListener(unused -> {
                     progressDialog.dismiss();
                     Toast.makeText(AddProductActivity.this,"Thêm Thành Công",Toast.LENGTH_SHORT).show();
+                    clearForm();
                 })
                 .addOnFailureListener(e -> Log.e("--->", "onFailure: "+e.getMessage() ));
     }
-
-
     private void readCategoriesRealtime() {
         db.collection("categories")
                 .addSnapshotListener((value, error) -> {

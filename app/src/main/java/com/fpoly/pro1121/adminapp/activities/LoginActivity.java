@@ -119,9 +119,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
-//        if(email!=null){
-//            edtEmail.setText(email);
-//        }
+        try {
+            String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+            if(email!=null){
+                edtEmail.setText(email);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

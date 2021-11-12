@@ -208,7 +208,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
     }
     // nhận 1 category
     private void addCategory(Category category) {
-        // viết code ở đây
+        // tạo 1 document trùng với categoryID
         db.collection("categories")
                 .document(category.getId())
                 .set(category)
@@ -216,7 +216,6 @@ public class CategoryManagerActivity extends AppCompatActivity {
                     Toast.makeText(CategoryManagerActivity.this, "Thêm Thành Công", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> Log.e("--->","onFailure:"));
-        // lưu ý: tạo 1 document trùng với categoryID
     }
 
 

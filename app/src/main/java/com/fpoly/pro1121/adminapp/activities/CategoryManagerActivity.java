@@ -55,6 +55,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_manager);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         initUI();
         initRecyclerView();
         readDataRealtime();
@@ -125,13 +126,19 @@ public class CategoryManagerActivity extends AppCompatActivity {
     }
 
     private void deleteCategory(String categoryID) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef.child("category").child(categoryID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(CategoryManagerActivity.this,"Xóa thành công",Toast.LENGTH_SHORT).show();
-            }
-        });
+        db.collection("categories").document(categoryID).delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(CategoryManagerActivity.this,"Xóa thành công",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(CategoryManagerActivity.this,"Xóa thất bại",Toast.LENGTH_SHORT).show();
+                            Log.e("--->", "onComplete: error");
+                        }
+                    }
+                });
     }
 
 

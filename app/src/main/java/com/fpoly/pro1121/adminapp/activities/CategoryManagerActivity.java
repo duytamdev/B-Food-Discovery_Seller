@@ -27,9 +27,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -122,7 +125,13 @@ public class CategoryManagerActivity extends AppCompatActivity {
     }
 
     private void deleteCategory(String categoryID) {
-        // viết code ở đây
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("category").child(categoryID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(CategoryManagerActivity.this,"Xóa thành công",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

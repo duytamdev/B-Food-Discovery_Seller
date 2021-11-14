@@ -1,5 +1,6 @@
 package com.fpoly.pro1121.adminapp;
 
+import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -9,10 +10,27 @@ import android.widget.EditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class Utils {
 
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+    public static String DateToString(Date date){
+        return simpleDateFormat.format(date).toString();
+    }
+    public static Date StringToDate(String sDate){
+        try {
+            return  simpleDateFormat.parse(sDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static String getFormatNumber(int number) {
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);

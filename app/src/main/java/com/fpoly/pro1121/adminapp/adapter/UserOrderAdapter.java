@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fpoly.pro1121.adminapp.R;
+import com.fpoly.pro1121.adminapp.Utils;
 import com.fpoly.pro1121.adminapp.model.Order;
 import com.fpoly.pro1121.adminapp.model.ProductOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,6 +55,9 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.User
     public void onBindViewHolder(@NonNull UserOrderViewHoder holder, int position) {
         Order order = list.get(position);
         if(order == null) return;
+        String date = Utils.DateToString(order.getDate());
+        holder.tvDate.setText(date);
+        holder.tvUnitPrice.setText(order.getUnitPrice()+" đ");
         String idUser = order.getUserID();
         db.collection("users")
                 .document(idUser)
@@ -98,13 +102,15 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.User
 
     public class UserOrderViewHoder extends RecyclerView.ViewHolder {
         CircleImageView ivAvt;
-        TextView tvName,tvPhoneNumber,tvLocation;
+        TextView tvName,tvPhoneNumber,tvLocation,tvDate,tvUnitPrice;
         public UserOrderViewHoder(@NonNull View itemView) {
             super(itemView);
             ivAvt = itemView.findViewById(R.id.iv_avt_user_order);
             tvName = itemView.findViewById(R.id.tv_name_user_order);
             tvPhoneNumber = itemView.findViewById(R.id.tv_phone_number_user_order);
             tvLocation = itemView.findViewById(R.id.tv_location_user_order);
+            tvDate = itemView.findViewById(R.id.tv_date_user_order);
+            tvUnitPrice = itemView.findViewById(R.id.tv_unitPrice_user_order);
         }
     }
 }

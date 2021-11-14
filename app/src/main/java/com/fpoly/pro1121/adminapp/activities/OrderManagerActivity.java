@@ -15,6 +15,7 @@ import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.adapter.UserOrderAdapter;
 import com.fpoly.pro1121.adminapp.model.Order;
 import com.fpoly.pro1121.adminapp.model.ProductOrder;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -62,6 +64,9 @@ public class OrderManagerActivity extends AppCompatActivity {
                                     String id = (String) data.get("id");
                                     String idUser = (String) data.get("userID");
                                     int unitPriceOrder = ((Long) Objects.requireNonNull(data.get("unitPrice"))).intValue();
+                                    Timestamp stamp = (Timestamp) data.get("date");
+                                    assert stamp != null;
+                                    Date date = stamp.toDate();
                                     // get list productOrder
                                     List<ProductOrder> productOrderList= new ArrayList<>();
                                     List<Map<String,Object>> productOrders = (List<Map<String, Object>>) data.get("productOrderList");
@@ -75,7 +80,7 @@ public class OrderManagerActivity extends AppCompatActivity {
                                         ProductOrder productOrder = new ProductOrder(idProductOrder,idUser,idProduct,priceProduct,quantity,unitPrice);
                                         productOrderList.add(productOrder);
                                     }
-                                    Order order = new Order(id,idUser,productOrderList,unitPriceOrder);
+                                    Order order = new Order(id,idUser,productOrderList,unitPriceOrder,date);
                                     clones.add(order);
                                 }
                                list = new ArrayList<>();

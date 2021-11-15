@@ -10,6 +10,8 @@
     android:src="@drawable/ic_launcher_background"
     android:layout_height="48dp"/>
     <TextView
+        android:maxLines="2"
+        android:ellipsize="end"
         android:id="@+id/tv_name_category_spinner_item"
         android:textStyle="bold"
         android:textSize="18dp"

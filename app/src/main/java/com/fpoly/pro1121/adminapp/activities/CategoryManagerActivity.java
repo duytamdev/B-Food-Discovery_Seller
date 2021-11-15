@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fpoly.pro1121.adminapp.R;
@@ -175,6 +178,34 @@ public class CategoryManagerActivity extends AppCompatActivity {
                    e.printStackTrace();
                }
             });
+            edtName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if (i == EditorInfo.IME_ACTION_DONE) {
+                        try {
+                            String name = edtName.getText().toString().trim();
+                            //check validation
+                            if(name.isEmpty()||tilNameCategory.getError()!=null){
+                                Log.e("-->", "onEditorAction:error" );
+                            }else{
+                                // get chuỗi random làm id category
+                                UUID uuid = UUID.randomUUID();
+                                String idCategory = uuid.toString();
+                                // tạo 1 đối tượng rồi add vào firebase
+                                Category category = new Category(idCategory,name,urlImage);
+                                // hàm add
+                                addCategory(category);
+                            }
+
+                            dialog.dismiss();
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+            });
         }
         else{
             try {
@@ -188,6 +219,24 @@ public class CategoryManagerActivity extends AppCompatActivity {
                     }
                     updateCategory(categoryCurrent[0]);
                     dialog.dismiss();
+                });
+                edtName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        if(i== EditorInfo.IME_ACTION_DONE){
+                            String name = edtName.getText().toString();
+                            categoryCurrent[0].setName(name);
+                            if(name.isEmpty()||tilNameCategory.getError()!=null){
+                                Log.e("-->", "onEditorAction:error" );
+                            }else{
+                                updateCategory(categoryCurrent[0]);
+                                dialog.dismiss();
+                            }
+
+                            return true;
+                        }
+                        return false;
+                    }
                 });
 
             }catch(Exception e) {

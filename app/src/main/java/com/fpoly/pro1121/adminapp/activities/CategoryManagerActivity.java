@@ -251,7 +251,14 @@ public class CategoryManagerActivity extends AppCompatActivity {
     // chỉ update tên category, ko update img
     // update thành công xuất ra thông báo
     private void updateCategory(Category category) {
-
+        db.collection("categories")
+                .document(category.getId())
+                .update("name", category.getName()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(CategoryManagerActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     // nhận 1 category
     private void addCategory(Category category) {

@@ -178,6 +178,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                    e.printStackTrace();
                }
             });
+            // khi click done trên bàn phím
             edtName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -220,6 +221,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                     updateCategory(categoryCurrent[0]);
                     dialog.dismiss();
                 });
+                // khi click done trên bàn phím
                 edtName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -246,14 +248,10 @@ public class CategoryManagerActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    // chỉ update tên category, ko update img
+    // update thành công xuất ra thông báo
     private void updateCategory(Category category) {
-        db.collection("categories").document(category.getId()).update("name",category.getName())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(CategoryManagerActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
-                    }
-                });
+
     }
     // nhận 1 category
     private void addCategory(Category category) {

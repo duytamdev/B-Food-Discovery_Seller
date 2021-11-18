@@ -1,6 +1,7 @@
 package com.fpoly.pro1121.adminapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -22,14 +23,6 @@ public class Utils {
 
     public static String DateToString(Date date){
         return simpleDateFormat.format(date).toString();
-    }
-    public static Date StringToDate(String sDate){
-        try {
-            return  simpleDateFormat.parse(sDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
     public static String getFormatNumber(int number) {
         Locale localeVN = new Locale("vi", "VN");
@@ -69,6 +62,40 @@ public class Utils {
 
             @Override
             public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+    public static void addTextChangedListenerPass(EditText e, final TextInputLayout t){
+        e.setOnFocusChangeListener((view, b) -> {
+            if (b && e.getText().toString().isEmpty()) {
+                t.setEnabled(true);
+                t.setError("Không được để trống");
+            }
+        });
+        e.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() <= 0) {
+                    t.setEnabled(true);
+                    t.setError("Không được để trống");
+                }
+                if(charSequence.length()<6){
+                    t.setEnabled(true);
+                    t.setError("Mật khẩu không thể dưới 6 kí tự");
+                } else {
+                    t.setError(null);
+                    t.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });

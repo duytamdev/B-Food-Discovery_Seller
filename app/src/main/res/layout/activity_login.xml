@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
     <LinearLayout
+        android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_gravity="center_horizontal"

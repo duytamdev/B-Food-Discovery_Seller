@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -45,6 +46,7 @@ import java.util.UUID;
 
 public class AddProductActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     TextInputLayout tilName,tilPrice,tilDescription;
     ImageView ivProduct;
     EditText edtName,edtPrice,edtDescription;
@@ -60,12 +62,20 @@ public class AddProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        initToolbar();
         initUI();
         readCategoriesRealtime();
         actionAddProduct();
     }
 
+    private void initToolbar() {
+        toolbar = findViewById(R.id.toolbar_add_product);
+        toolbar.setTitle("Thêm Sản Phẩm Mới");
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
+    }
     @SuppressLint("SetTextI18n")
     private void actionAddProduct() {
         Utils.addTextChangedListener(edtName,tilName,false);

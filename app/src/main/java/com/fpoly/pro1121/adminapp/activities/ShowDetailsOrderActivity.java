@@ -1,6 +1,7 @@
 package com.fpoly.pro1121.adminapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class ShowDetailsOrderActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     RecyclerView rvShowDetails;
     DetailsOrderAdapter detailsOrderAdapter;
     List<ProductOrder>list;
@@ -23,8 +25,16 @@ public class ShowDetailsOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_details_order);
         initUI();
+        initToolbar();
     }
+    private void initToolbar() {
+        toolbar = findViewById(R.id.toolbar_details_order);
+        toolbar.setTitle("Danh Sách Sản Phẩm Trong Hoá Đơn");
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
+    }
     private void readData() {
         Intent intent = getIntent();
         list = intent.getParcelableArrayListExtra("list");
@@ -44,5 +54,11 @@ public class ShowDetailsOrderActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         readData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
     }
 }

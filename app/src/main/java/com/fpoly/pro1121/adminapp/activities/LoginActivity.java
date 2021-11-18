@@ -1,6 +1,6 @@
 package com.fpoly.pro1121.adminapp.activities;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -12,12 +12,9 @@ import android.widget.Toast;
 
 import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -53,17 +50,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private void events() {
         Utils.addTextChangedListener(edtEmail,tilEmail,true);
-        Utils.addTextChangedListener(edtPassword,tilPassword,false);
+        Utils.addTextChangedListenerPass(edtPassword,tilPassword);
         btnLogin.setOnClickListener(view -> {
             try {
                 String email = edtEmail.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
 
-                if(email.isEmpty()|| password.isEmpty()){
-                    Toast.makeText(LoginActivity.this,"Vui lòng điền đầy đủ thông tin",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(tilEmail.getError()!=null|| tilPassword.getError()!=null){
+                if(email.isEmpty()|| password.isEmpty()||tilEmail.getError()!=null|| tilPassword.getError()!=null){
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("Login failed")
+                            .setMessage("Vui lòng điền đầy đủ thông tin!")
+                            .setNegativeButton("Thử lại",null)
+                            .show();
                     return;
                 }
                 actionLogin(email,password);
@@ -79,46 +77,54 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("loading....");
         progressDialog.show();
         mAuth.signInWithEmailAndPassword(email,password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        String userID = mAuth.getCurrentUser().getUid();
-                       DocumentReference docRef = db.collection("users").document(userID);
-                       docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                           @Override
-                           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if(task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if(document.exists()){
-                                        boolean isAdmin = document.getBoolean("admin");
-                                        if(isAdmin) {
-                                            Toast.makeText(LoginActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                        }else{
-                                            Toast.makeText(LoginActivity.this,"Tài khoản không có quyền truy cập",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
+                .addOnSuccessListener(authResult -> {
+                    // kiểm tra quyền của user
+                    String userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                   DocumentReference docRef = db.collection("users").document(userID);
+                   docRef.get().addOnCompleteListener(task -> {
+                        if(task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            assert document != null;
+                            if(document.exists()){
+                                boolean isAdmin = document.getBoolean("admin");
+                                if(isAdmin) {
+                                    Toast.makeText(LoginActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                    finish();
                                 }else{
-                                    Toast.makeText(LoginActivity.this,"Login false",Toast.LENGTH_SHORT).show();
+                                    new AlertDialog.Builder(LoginActivity.this)
+                                            .setTitle("Login failed")
+                                            .setMessage("Tài Khoản Không Có Quyền Đăng Nhập!")
+                                            .setNegativeButton("Thử lại",null)
+                                            .show();
                                 }
-                               progressDialog.dismiss();
-                           }
-                       });
-                    }
+                            }
+
+                        }else{
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("Login failed")
+                                    .setMessage("Tài khoản hoặc mật khẩu không chính xác!")
+                                    .setNegativeButton("Thử lại",null)
+                                    .show();
+                        }
+                       progressDialog.dismiss();
+                   });
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginActivity.this,"Login không thành công",Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
+                .addOnFailureListener(e -> {
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("Login failed")
+                            .setMessage("Tài khoản hoặc mật khẩu không chính xác!")
+                            .setNegativeButton("Thử lại",null)
+                            .show();
+                    progressDialog.dismiss();
                 });
     }
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onResume() {
         super.onResume();
+        this.doubleBackToExitPressedOnce = false;
         try {
             String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
             if(email!=null){
@@ -128,5 +134,16 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        // doubleBackToTrue = true: thoát ứng dụng
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        // click lần 1: doubleBackToExit = true , show thông báo
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this,"Click phím back lần nữa để thoát", Toast.LENGTH_SHORT).show();
     }
 }

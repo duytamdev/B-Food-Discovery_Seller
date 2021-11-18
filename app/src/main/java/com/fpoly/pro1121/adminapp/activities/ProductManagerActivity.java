@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,7 @@ import java.util.Map;
 
 public class ProductManagerActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     RecyclerView rvProduct;
     FloatingActionButton  fabAddProduct;
     ProductAdapter productAdapter;
@@ -42,11 +44,19 @@ public class ProductManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_manager);
         initUI();
+        initToolbar();
         initRecyclerView();
         actionAddProduct();
         readDataRealtime();
     }
+    private void initToolbar() {
+        toolbar = findViewById(R.id.toolbar_product_manager);
+        toolbar.setTitle("Danh Sách Sản Phẩm");
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
+    }
     private void readDataRealtime() {
         ProgressDialog progressDialog = new ProgressDialog(ProductManagerActivity.this);
         progressDialog.setMessage("loading....");
@@ -147,5 +157,11 @@ public class ProductManagerActivity extends AppCompatActivity {
     private void initUI() {
         rvProduct = findViewById(R.id.rv_product);
         fabAddProduct = findViewById(R.id.fab_add_product);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
     }
 }

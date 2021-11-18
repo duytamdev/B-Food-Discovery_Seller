@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,7 @@ import java.util.UUID;
 
 public class CategoryManagerActivity extends AppCompatActivity {
 
-
+    Toolbar toolbar;
     RecyclerView rvCategory;
     FloatingActionButton fabAddCategory;
     CategoryAdapter categoryAdapter;
@@ -53,13 +54,21 @@ public class CategoryManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_manager);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         initUI();
+        initToolbar();
         initRecyclerView();
         readDataRealtime();
         events();
     }
+    private void initToolbar() {
+        toolbar = findViewById(R.id.toolbar_category_manager);
+        toolbar.setTitle("Danh Sách Loại Sản Phẩm");
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
+    }
     private void readDataRealtime() {
         db.collection("categories")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -272,5 +281,10 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e("--->","onFailure:"));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+    }
 
 }

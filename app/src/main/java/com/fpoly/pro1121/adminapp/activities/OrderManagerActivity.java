@@ -2,6 +2,7 @@ package com.fpoly.pro1121.adminapp.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,7 @@ import java.util.Objects;
 
 public class OrderManagerActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     RecyclerView rvUserOrder;
     UserOrderAdapter userOrderAdapter;
     List<Order> list;
@@ -39,9 +41,17 @@ public class OrderManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_manager);
         initUI();
+        initToolbar();
         readDataRealtime();
     }
+    private void initToolbar() {
+        toolbar = findViewById(R.id.toolbar_order_manager);
+        toolbar.setTitle("Danh Sách Hoá Đơn");
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
+    }
     private void readDataRealtime() {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
@@ -103,11 +113,18 @@ public class OrderManagerActivity extends AppCompatActivity {
                 Intent intent = new Intent(OrderManagerActivity.this,ShowDetailsOrderActivity.class);
                 intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) productOrderList);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             }
         });
         userOrderAdapter.setData(list);
         rvUserOrder.setAdapter(userOrderAdapter);
         LinearLayoutManager linearLayout = new LinearLayoutManager(this);
         rvUserOrder.setLayoutManager(linearLayout);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
     }
 }

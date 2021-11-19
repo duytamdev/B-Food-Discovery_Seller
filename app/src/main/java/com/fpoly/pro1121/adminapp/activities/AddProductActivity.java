@@ -137,7 +137,6 @@ public class AddProductActivity extends AppCompatActivity {
                     if(tilName.getError()!=null||tilDescription.getError()!=null||tilPrice.getError()!=null) {
                         return;
                     }
-                    // cập nhật các field cần cập nhật
                     product.updateProduct(urlImage,name,price,descriptor,categoryID);
                     updateProduct(product);
                 }catch(Exception e) {
@@ -154,14 +153,14 @@ public class AddProductActivity extends AppCompatActivity {
         edtPrice.setText("");
         edtDescription.setText("");
     }
-    /**
-     * cập nhật các field: name, urlImage,price,description,categoryID của sản phẩm
-     * @param product: sản phẩm đã được cập nhật
-     */
     private void updateProduct(Product product) {
+        ProgressDialog progressDialog = new ProgressDialog(AddProductActivity.this);
+        progressDialog.setMessage("loading....");
+        progressDialog.show();
         db.collection("products")
                 .document(product.getId())
-                .update("name",product.getName(),
+                .update(
+                        "name",product.getName(),
                         "urlImage",product.getUrlImage(),
                         "price",product.getPrice(),
                         "description",product.getDescription(),
@@ -169,7 +168,8 @@ public class AddProductActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(AddProductActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        Toast.makeText(AddProductActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

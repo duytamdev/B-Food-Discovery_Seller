@@ -120,6 +120,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                 intent.putExtra("product",product);
                 startActivity(intent);
 
+
             }
         });
         productAdapter.setData(list);

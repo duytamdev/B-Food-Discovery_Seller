@@ -57,7 +57,7 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.User
         if(order == null) return;
         String date = Utils.DateToString(order.getDate());
         holder.tvDate.setText(date);
-        holder.tvUnitPrice.setText(order.getUnitPrice()+" đ");
+        holder.tvUnitPrice.setText(Utils.getFormatNumber(order.getUnitPrice()));
         String idUser = order.getUserID();
         db.collection("users")
                 .document(idUser)

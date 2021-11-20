@@ -1,6 +1,14 @@
 package com.fpoly.pro1121.adminapp.activities;
 
 
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_BUTTON_CANCEL;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_BUTTON_DELETE;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_CONFIRM_DELETE;
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_DELETE_FAILED;
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_DELETE_SUCCESS;
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_INSERT_SUCCESS;
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_UPDATE_SUCCESS;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -106,8 +114,8 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 // click delete category
                 new AlertDialog.Builder(CategoryManagerActivity.this)
                         .setTitle("Xác Nhận")
-                        .setMessage("Bạn có thật sự muốn xoá ?")
-                        .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
+                        .setMessage(ALERT_CONFIRM_DELETE)
+                        .setPositiveButton(ALERT_BUTTON_DELETE, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // xoá category ở đây
@@ -116,7 +124,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
 
                             }
                         })
-                        .setNegativeButton("Huỷ",null)
+                        .setNegativeButton(ALERT_BUTTON_CANCEL,null)
                         .show();
 
             }
@@ -138,10 +146,10 @@ public class CategoryManagerActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(CategoryManagerActivity.this,"Xóa thành công",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CategoryManagerActivity.this,TOAST_DELETE_SUCCESS,Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(CategoryManagerActivity.this,"Xóa thất bại",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CategoryManagerActivity.this,TOAST_DELETE_FAILED,Toast.LENGTH_SHORT).show();
                             Log.e("--->", "onComplete: error");
                         }
                     }
@@ -265,7 +273,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 .update("name", category.getName()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(CategoryManagerActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoryManagerActivity.this, TOAST_UPDATE_SUCCESS, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -276,7 +284,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 .document(category.getId())
                 .set(category)
                 .addOnSuccessListener(unused -> {
-                    Toast.makeText(CategoryManagerActivity.this, "Thêm Thành Công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CategoryManagerActivity.this, TOAST_INSERT_SUCCESS, Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> Log.e("--->","onFailure:"));
     }

@@ -1,5 +1,10 @@
 package com.fpoly.pro1121.adminapp.activities;
 
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_BUTTON_CANCEL;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_BUTTON_DELETE;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_CONFIRM_DELETE;
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_DELETE_SUCCESS;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -101,8 +106,8 @@ public class ProductManagerActivity extends AppCompatActivity {
             public void clickDelete(String productID) {
             new AlertDialog.Builder(ProductManagerActivity.this)
                     .setTitle("Xác nhận")
-                    .setMessage("Bạn có thật sự muốn xoá không ?")
-                    .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
+                    .setMessage(ALERT_CONFIRM_DELETE)
+                    .setPositiveButton(ALERT_BUTTON_DELETE, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             // xoá product ở đây
@@ -110,7 +115,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                             deleteProduct(productID);
                         }
                     })
-                    .setNegativeButton("Huỷ",null)
+                    .setNegativeButton(ALERT_BUTTON_CANCEL,null)
                     .show();
             }
 
@@ -136,7 +141,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(ProductManagerActivity.this, "Đã xóa sản phẩm !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductManagerActivity.this, TOAST_DELETE_SUCCESS, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

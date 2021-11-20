@@ -1,5 +1,10 @@
 package com.fpoly.pro1121.adminapp.activities;
 
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_ACCOUNT_NOT_ROLE;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_BUTTON_RETRY;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_EMPTY_INFO;
+import static com.fpoly.pro1121.adminapp.Constant.ALERT_INCORRECT_ACCOUNT;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fpoly.pro1121.adminapp.Constant;
 import com.fpoly.pro1121.adminapp.R;
 import com.fpoly.pro1121.adminapp.Utils;
 
@@ -61,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(email.isEmpty()|| password.isEmpty()||tilEmail.getError()!=null|| tilPassword.getError()!=null){
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Login failed")
-                            .setMessage("Vui lòng điền đầy đủ thông tin!")
-                            .setNegativeButton("Thử lại",null)
+                            .setMessage(ALERT_EMPTY_INFO)
+                            .setNegativeButton(ALERT_BUTTON_RETRY,null)
                             .show();
                     return;
                 }
@@ -96,8 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }else{
                                     new AlertDialog.Builder(LoginActivity.this)
                                             .setTitle("Login failed")
-                                            .setMessage("Tài Khoản Không Có Quyền Đăng Nhập!")
-                                            .setNegativeButton("Thử lại",null)
+                                            .setMessage(ALERT_ACCOUNT_NOT_ROLE)
+                                            .setNegativeButton(ALERT_BUTTON_RETRY,null)
                                             .show();
                                 }
                             }
@@ -105,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             new AlertDialog.Builder(LoginActivity.this)
                                     .setTitle("Login failed")
-                                    .setMessage("Tài khoản hoặc mật khẩu không chính xác!")
+                                    .setMessage(ALERT_INCORRECT_ACCOUNT)
                                     .setNegativeButton("Thử lại",null)
                                     .show();
                         }
@@ -115,8 +121,8 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Login failed")
-                            .setMessage("Tài khoản hoặc mật khẩu không chính xác!")
-                            .setNegativeButton("Thử lại",null)
+                            .setMessage(ALERT_INCORRECT_ACCOUNT)
+                            .setNegativeButton(ALERT_BUTTON_RETRY,null)
                             .show();
                     progressDialog.dismiss();
                 });
@@ -145,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Click phím back lần nữa để thoát", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Constant.TOAST_DOUBLE_BACK_TO_EXIT, Toast.LENGTH_SHORT).show();
         // nếu quá 2 giây ko thao tác thì chuyen trang thai false
         new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }

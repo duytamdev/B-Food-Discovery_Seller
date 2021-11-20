@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fpoly.pro1121.adminapp.Constant;
 import com.fpoly.pro1121.adminapp.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Click phím back lần nữa để thoát", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Constant.TOAST_DOUBLE_BACK_TO_EXIT, Toast.LENGTH_SHORT).show();
         // nếu quá 2 giây ko thao tác thì chuyen trang thai false
         new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }

@@ -1,5 +1,8 @@
 package com.fpoly.pro1121.adminapp.activities;
 
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_INSERT_SUCCESS;
+import static com.fpoly.pro1121.adminapp.Constant.TOAST_UPDATE_SUCCESS;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -167,7 +170,7 @@ public class AddProductActivity extends AppCompatActivity {
                         "categoryID",product.getCategoryID())
                 .addOnSuccessListener(unused -> {
                     progressDialog.dismiss();
-                    Toast.makeText(AddProductActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductActivity.this,TOAST_UPDATE_SUCCESS,Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -180,7 +183,7 @@ public class AddProductActivity extends AppCompatActivity {
                 .set(product)
                 .addOnSuccessListener(unused -> {
                     progressDialog.dismiss();
-                    Toast.makeText(AddProductActivity.this,"Thêm Thành Công",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductActivity.this,TOAST_INSERT_SUCCESS,Toast.LENGTH_SHORT).show();
                     clearForm();
                 })
                 .addOnFailureListener(e -> Log.e("--->", "onFailure: "+e.getMessage() ));

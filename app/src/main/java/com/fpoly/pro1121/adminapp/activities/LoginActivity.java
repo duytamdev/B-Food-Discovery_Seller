@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -119,12 +121,10 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                 });
     }
-    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.doubleBackToExitPressedOnce = false;
         try {
             String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
             if(email!=null){
@@ -135,15 +135,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
-        // doubleBackToTrue = true: thoát ứng dụng
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
         }
-        // click lần 1: doubleBackToExit = true , show thông báo
+
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this,"Click phím back lần nữa để thoát", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Click phím back lần nữa để thoát", Toast.LENGTH_SHORT).show();
+        // nếu quá 2 giây ko thao tác thì chuyen trang thai false
+        new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce=false, 2000);
     }
 }

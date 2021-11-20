@@ -165,12 +165,9 @@ public class AddProductActivity extends AppCompatActivity {
                         "price",product.getPrice(),
                         "description",product.getDescription(),
                         "categoryID",product.getCategoryID())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddProductActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
-                    }
+                .addOnSuccessListener(unused -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(AddProductActivity.this,"Cập nhập thành công",Toast.LENGTH_SHORT).show();
                 });
     }
 

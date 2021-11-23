@@ -55,7 +55,7 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.User
     public void onBindViewHolder(@NonNull UserOrderViewHoder holder, int position) {
         Order order = list.get(position);
         if(order == null) return;
-        String date = Utils.DateToString(order.getDate());
+        String date = Utils.dateToString(order.getDate());
         holder.tvDate.setText(date);
         holder.tvUnitPrice.setText(Utils.getFormatNumber(order.getUnitPrice()));
         String idUser = order.getUserID();

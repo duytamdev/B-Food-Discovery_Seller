@@ -63,19 +63,25 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.User
         holder.tvUnitPrice.setText(Utils.getFormatNumber(order.getUnitPrice()));
         holder.tvStateOrder.setText(order.getState());
         holder.tvChangeState.setOnClickListener(view -> iClickUserOrderListener.clickChangeState(order));
-        if(order.getState().equalsIgnoreCase("hoàn thành")){
-            holder.tvStateOrder.setTextColor(holder.itemView.getResources().getColor(R.color.green));
-            holder.layoutDate.setBackgroundColor(holder.itemView.getResources().getColor(R.color.green));
-        }
-        else if(order.getState().equalsIgnoreCase("đang chuẩn bị")){
-            holder.tvStateOrder.setTextColor(holder.itemView.getResources().getColor(R.color.yellow));
-            holder.layoutDate.setBackgroundColor(holder.itemView.getResources().getColor(R.color.yellow));
-        }
-        else{
-            holder.tvStateOrder.setTextColor(holder.itemView.getResources().getColor(R.color.red));
-            holder.layoutDate.setBackgroundColor(holder.itemView.getResources().getColor(R.color.red));
+        try {
+            if(order.getState().equalsIgnoreCase("hoàn thành")){
+                holder.tvStateOrder.setTextColor(holder.itemView.getResources().getColor(R.color.green));
+                holder.layoutDate.setBackgroundColor(holder.itemView.getResources().getColor(R.color.green));
+            }
+            else if(order.getState().equalsIgnoreCase("đang chuẩn bị")){
+                holder.tvStateOrder.setTextColor(holder.itemView.getResources().getColor(R.color.yellow));
+                holder.layoutDate.setBackgroundColor(holder.itemView.getResources().getColor(R.color.yellow));
+            }
+            else{
+                holder.tvStateOrder.setTextColor(holder.itemView.getResources().getColor(R.color.red));
+                holder.layoutDate.setBackgroundColor(holder.itemView.getResources().getColor(R.color.red));
 
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
+
         String idUser = order.getUserID();
         db.collection("users")
                 .document(idUser)

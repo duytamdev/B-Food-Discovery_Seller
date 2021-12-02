@@ -82,12 +82,16 @@
                 android:layout_below="@id/tv_unitPrice_user_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <TextView
+                android:maxWidth="140dp"
                 android:id="@+id/tv_name_user_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_toRightOf="@+id/layout_date"
-                android:text="Nguyen van A"
+                android:maxLines="3"
+                android:text="Nguyen ddddadadavan A"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
             <TextView
@@ -97,14 +101,16 @@
                 android:layout_below="@+id/tv_name_user_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <TextView
-                android:text="Ho Chi Mminh"
-                android:textColor="@color/orange"
-                android:layout_below="@+id/tv_phone_number_user_order"
-                android:layout_toRightOf="@+id/layout_date"
+                android:maxWidth="140dp"
                 android:id="@+id/tv_location_user_order"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_phone_number_user_order"
+                android:layout_toRightOf="@+id/layout_date"
+                android:text="Ho Chi Mminh"
+                android:textColor="@color/orange" />
         </RelativeLayout>
     </com.chauthai.swipereveallayout.SwipeRevealLayout>
 

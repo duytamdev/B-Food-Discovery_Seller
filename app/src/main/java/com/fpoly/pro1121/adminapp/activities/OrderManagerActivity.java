@@ -11,8 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.fpoly.pro1121.adminapp.R;
+import com.fpoly.pro1121.adminapp.Utils;
 import com.fpoly.pro1121.adminapp.adapter.UserOrderAdapter;
 import com.fpoly.pro1121.adminapp.model.Order;
 import com.fpoly.pro1121.adminapp.model.ProductOrder;
@@ -33,10 +35,12 @@ import java.util.Objects;
 
 public class OrderManagerActivity extends AppCompatActivity {
 
+    TextView tvUnitPrice;
     Toolbar toolbar;
     RecyclerView rvUserOrder;
     UserOrderAdapter userOrderAdapter;
     List<Order> list;
+    int unitPrice = 0;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,7 @@ public class OrderManagerActivity extends AppCompatActivity {
                                     String id = (String) data.get("id");
                                     String idUser = (String) data.get("userID");
                                     int unitPriceOrder = ((Long) Objects.requireNonNull(data.get("unitPrice"))).intValue();
+                                    unitPrice+= unitPriceOrder;
                                     Timestamp stamp = (Timestamp) data.get("date");
                                     assert stamp != null;
                                     Date date = stamp.toDate();
@@ -100,6 +105,7 @@ public class OrderManagerActivity extends AppCompatActivity {
                                list = new ArrayList<>();
                                 list.addAll(clones);
                                 userOrderAdapter.setData(list);
+                                tvUnitPrice.setText(Utils.getFormatNumber(unitPrice));
                                 progressDialog.dismiss();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -110,6 +116,7 @@ public class OrderManagerActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        tvUnitPrice = findViewById(R.id.tv_unit_price_orders);
         rvUserOrder = findViewById(R.id.rv_user_order);
         userOrderAdapter = new UserOrderAdapter(new UserOrderAdapter.IClickUserOrderListener() {
             @Override

@@ -1,62 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="16dp"
     android:layout_height="wrap_content">
-    <RelativeLayout
-        android:padding="8dp"
+    <com.chauthai.swipereveallayout.SwipeRevealLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_date_user_order"
+        android:layout_height="wrap_content"
+        tools:ignore="ExtraText"
+        app:dragEdge="right"
+        app:mode="same_level">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:text="19-11-2021"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-        <TextView
-            android:textSize="22sp"
-            android:layout_below="@id/tv_date_user_order"
-            android:id="@+id/tv_unitPrice_user_order"
-            android:layout_marginEnd="8dp"
-            android:layout_alignParentEnd="true"
-            android:textStyle="bold"
-            android:textColor="@color/orange"
-            android:text="50000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_avt_user_order"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_width="64dp"
-            android:layout_height="64dp"/>
-        <TextView
-            android:id="@+id/tv_name_user_order"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_toRightOf="@+id/iv_avt_user_order"
-            android:text="Nguyen van A"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_phone_number_user_order"
-            android:text="078484848"
-            android:layout_toRightOf="@id/iv_avt_user_order"
-            android:layout_below="@+id/tv_name_user_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:text="Ho Chi Mminh"
-            android:textColor="@color/orange"
-            android:layout_below="@+id/tv_phone_number_user_order"
-            android:layout_toRightOf="@+id/iv_avt_user_order"
-            android:id="@+id/tv_location_user_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_change_state_order"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:background="#0065FF"
+                android:textStyle="bold"
+                android:padding="24dp"
+                android:text="Cập nhật\ntrạng thái"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/layout_content_order"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginEnd="8dp"
+                android:id="@+id/layout_date"
+                android:orientation="vertical"
+                android:background="#0065FF"
+                android:padding="16dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="22sp"
+                    android:id="@+id/tv_time_user_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="10:00 PM"
+                    android:textColor="@color/white" />
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="11-NOV-2021"
+                    android:id="@+id/tv_date_user_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_unitPrice_user_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@id/tv_name_user_order"
+                android:text="50000"
+                android:textColor="@color/orange"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_state_order"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentEnd="true"
+                android:text="Trạng thái"
+                android:layout_below="@id/tv_unitPrice_user_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_name_user_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/layout_date"
+                android:text="Nguyen van A"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tv_phone_number_user_order"
+                android:text="078484848"
+                android:layout_toRightOf="@id/layout_date"
+                android:layout_below="@+id/tv_name_user_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="Ho Chi Mminh"
+                android:textColor="@color/orange"
+                android:layout_below="@+id/tv_phone_number_user_order"
+                android:layout_toRightOf="@+id/layout_date"
+                android:id="@+id/tv_location_user_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+
 </com.google.android.material.card.MaterialCardView>

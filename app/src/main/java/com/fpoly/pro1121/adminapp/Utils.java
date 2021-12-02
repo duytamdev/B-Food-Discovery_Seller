@@ -17,11 +17,17 @@ import java.util.Locale;
 public class Utils {
 
     @SuppressLint("SimpleDateFormat")
-    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a  dd/MM/yyyy");
+    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm a");
 
     public static String dateToString(Date date){
         return simpleDateFormat.format(date);
     }
+    public static String timeToString(Date date){
+        return simpleTimeFormat.format(date);
+    }
+
     public static String getFormatNumber(int number) {
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);

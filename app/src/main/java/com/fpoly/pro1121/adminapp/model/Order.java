@@ -9,19 +9,23 @@ public class Order {
     private List<ProductOrder> productOrderList;
     private int unitPrice;
     private Date date;
-//    public Order(String id, String userID, List<ProductOrder> productOrderList, int unitPrice) {
-//        this.id = id;
-//        this.userID = userID;
-//        this.productOrderList = productOrderList;
-//        this.unitPrice = unitPrice;
-//    }
+    private String state;
 
-    public Order(String id, String userID, List<ProductOrder> productOrderList, int unitPrice, Date date) {
+    public Order(String id, String userID, List<ProductOrder> productOrderList, int unitPrice, Date date, String state) {
         this.id = id;
         this.userID = userID;
         this.productOrderList = productOrderList;
         this.unitPrice = unitPrice;
         this.date = date;
+        this.state = state;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public Date getDate() {

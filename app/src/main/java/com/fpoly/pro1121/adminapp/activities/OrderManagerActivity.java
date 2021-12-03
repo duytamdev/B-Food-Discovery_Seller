@@ -94,11 +94,14 @@ public class OrderManagerActivity extends AppCompatActivity {
                                     String id = (String) data.get("id");
                                     String idUser = (String) data.get("userID");
                                     int unitPriceOrder = ((Long) Objects.requireNonNull(data.get("unitPrice"))).intValue();
-                                    unitPrice+= unitPriceOrder;
+                                    String state = (String) data.get("state");
+                                    // chỉ tính tổng những hoá đơn đã hoàn thành
+                                    if(state.equalsIgnoreCase("hoàn thành")){
+                                        unitPrice+= unitPriceOrder;
+                                    }
                                     Timestamp stamp = (Timestamp) data.get("date");
                                     assert stamp != null;
                                     Date date = stamp.toDate();
-                                    String state = (String) data.get("state");
                                     // get list productOrder
                                     List<ProductOrder> productOrderList= new ArrayList<>();
                                     List<Map<String,Object>> productOrders = (List<Map<String, Object>>) data.get("productOrderList");

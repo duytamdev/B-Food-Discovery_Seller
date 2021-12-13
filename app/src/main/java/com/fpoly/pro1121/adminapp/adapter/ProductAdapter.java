@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.fpoly.pro1121.adminapp.R;
+import com.fpoly.pro1121.adminapp.Utils;
 import com.fpoly.pro1121.adminapp.model.Product;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = products.get(position);
         if(product==null) return;
         holder.tvName.setText(product.getName());
-        holder.tvPrice.setText(product.getPrice()+" vnd");
+        holder.tvPrice.setText(Utils.getFormatNumber(product.getPrice()));
         Glide.with(holder.itemView.getContext())
                 .load(product.getUrlImage())
                 .centerCrop()
